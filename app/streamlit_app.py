@@ -9,6 +9,42 @@ OUTPUT_DIR = Path(__file__).parent / "outputs"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
+PRESETS = {
+    "Generic Integration Example": {
+        "project_name": "Example Product Integration Case Study",
+        "business_request": "Integrate our product with a partner platform so partner users can complete a key workflow using our capabilities.",
+        "business_goal": "Validate whether the partnership workflow creates value for partner users and can support future commercial expansion.",
+        "primary_user": "Partner platform user",
+        "user_goal": "complete the target workflow without leaving the partner platform",
+        "starting_system": "Partner platform",
+        "actors": "Partner platform user\nClient admin\nPartner admin\nEnd customer\nInternal product and engineering team",
+        "systems": "Partner platform\nClient product platform\nAuthentication or SSO layer\nWorkflow generation service\nAnalytics or audit layer",
+        "journey_steps": "User starts inside the partner platform\nUser opens the client product module\nSystem checks access and permissions\nUser selects or inputs required information\nSystem generates or prepares the output\nUser reviews the output\nUser approves or confirms the result\nSystem exports or completes the workflow\nSystem logs key events",
+        "product_decisions": "User starts inside the partner platform\nAuthentication is assumed for MVP planning\nThe partner platform owns user identity\nThe client product owns source content or capability\nHuman review is required before final output\nMVP exports or prepares output instead of performing irreversible production actions\nCore workflow events are logged",
+        "in_scope": "User entry point from partner platform\nAccess and permission check\nCore workflow steps\nReview and confirmation step\nExport-ready output\nBasic event logging",
+        "out_of_scope": "Production-grade SSO implementation\nReal external API integration\nAdvanced analytics\nBilling\nMulti-partner configuration\nFull compliance dashboard",
+        "risks": "Partner workflow assumptions may be wrong\nRequired APIs may not exist\nUsers may expect production behavior in MVP\nData ownership may be unclear\nScope may expand before validation",
+        "success_metrics": "User can complete the end-to-end workflow in a demo\nStakeholders understand the product flow\nEngineering can identify buildable tickets\nOpen questions are visible and assigned\nMVP scope is clear",
+    },
+    "ComplianceBrief x PartnerCRM": {
+        "project_name": "ComplianceBrief x PartnerCRM Newsletter Partnership Integration",
+        "business_request": "Integrate ComplianceBrief's newsletter product with PartnerCRM so PartnerCRM users can create newsletters using ComplianceBrief content.",
+        "business_goal": "Validate whether a ComplianceBrief and PartnerCRM partnership can create a useful embedded newsletter workflow for partner users.",
+        "primary_user": "PartnerCRM customer-success or sales user",
+        "user_goal": "create a customer-facing compliance newsletter using approved ComplianceBrief content without leaving PartnerCRM",
+        "starting_system": "PartnerCRM",
+        "actors": "PartnerCRM user\nComplianceBrief admin\nPartnerCRM admin\nEnd recipient\nInternal product and engineering team",
+        "systems": "PartnerCRM\nComplianceBrief content platform\nAuthentication or SSO layer\nNewsletter generation service\nDistribution or export service\nAnalytics or audit layer",
+        "journey_steps": "PartnerCRM user starts inside PartnerCRM\nUser opens the ComplianceBrief newsletter module\nSystem validates SSO and account-level access\nSystem loads approved ComplianceBrief content\nUser selects up to three approved content blocks\nSystem generates a newsletter draft from selected content\nDraft displays source references\nUser reviews and edits the draft\nUser selects a CRM audience segment\nUser approves the final draft\nSystem exports the approved newsletter draft\nSystem logs key workflow events",
+        "product_decisions": "User starts inside PartnerCRM\nSSO is assumed for MVP planning\nPartnerCRM is the identity provider\nPermissions are partner-account based\nComplianceBrief is the source of truth for research content\nOnly approved content can be used for generation\nNewsletter generation is LLM-assisted but constrained to selected approved content\nHuman approval is required before export\nPartnerCRM owns recipient data\nComplianceBrief does not store raw recipient-level personal data in MVP\nReal email sending is out of scope for MVP\nMVP produces an export-ready newsletter draft\nCore workflow events are logged",
+        "in_scope": "PartnerCRM entry point\nSSO-based access assumption\nAccount-level content permission check\nApproved ComplianceBrief content library\nContent selection flow\nNewsletter draft generation from selected content\nSource references for generated draft\nReview and edit workflow\nExplicit approval before export\nCRM audience segment selection using metadata only\nExport-ready newsletter output\nBasic workflow event logging",
+        "out_of_scope": "Real production SSO implementation\nReal CRM API integration\nReal LLM API\nReal email sending\nDeliverability management\nUnsubscribe handling\nAdvanced analytics dashboard\nBilling\nPartner marketplace listing\nMulti-partner configuration\nLegal approval queue\nFull audit console",
+        "risks": "PartnerCRM may not support the required SSO or embedding model\nPartnerCRM may not expose audience segment metadata cleanly\nStakeholders may expect real email sending in MVP\nGenerated content may require stricter legal review than assumed\nRecipient data ownership must remain clear\nScope may expand into analytics, sending, billing, or marketplace packaging before validation",
+        "success_metrics": "User can complete the end-to-end workflow in a demo environment\nUser understands which ComplianceBrief content is available and why\nUser can generate a draft from selected approved content\nUser can review and approve before export\nStakeholders can identify missing requirements after seeing the workflow\nEngineering can map requirements to buildable tickets\nMVP scope and out-of-scope boundaries are clear",
+    },
+}
+
+
 def slugify(value: str) -> str:
     value = value.strip().lower()
     value = re.sub(r"[^a-z0-9]+", "-", value)
@@ -57,7 +93,7 @@ def generate_markdown(data: dict) -> str:
 
     return f"""# {project_name}
 
-Generated by PM Case Study Generator v1.
+Generated by PM Case Study Generator v1.1.
 
 Generation timestamp: {now}
 
@@ -330,7 +366,7 @@ st.set_page_config(
 )
 
 st.title("PM Case Study Generator")
-st.caption("Phase 1: template-based PM artifact generator. No LLM required.")
+st.caption("Phase 1.1: template-based PM artifact generator with reusable presets. No LLM required.")
 
 st.markdown(
     """
@@ -342,95 +378,42 @@ business request → actors → systems → journey → decisions → scope → 
 """
 )
 
+preset_name = st.selectbox(
+    "Load a preset",
+    options=list(PRESETS.keys()),
+    index=1,
+)
+
+defaults = PRESETS[preset_name]
+
+st.info(f"Loaded preset: {preset_name}")
+
 with st.form("pm_generator_form"):
     st.subheader("1. Product Context")
 
-    project_name = st.text_input(
-        "Project name",
-        value="Example Product Integration Case Study",
-    )
-
-    business_request = st.text_area(
-        "Ambiguous business request",
-        value="Integrate our product with a partner platform so partner users can complete a key workflow using our capabilities.",
-        height=100,
-    )
-
-    business_goal = st.text_area(
-        "Business goal",
-        value="Validate whether the partnership workflow creates value for partner users and can support future commercial expansion.",
-        height=80,
-    )
+    project_name = st.text_input("Project name", value=defaults["project_name"])
+    business_request = st.text_area("Ambiguous business request", value=defaults["business_request"], height=100)
+    business_goal = st.text_area("Business goal", value=defaults["business_goal"], height=80)
 
     st.subheader("2. Users and Systems")
 
-    primary_user = st.text_input(
-        "Primary user",
-        value="Partner platform user",
-    )
-
-    user_goal = st.text_area(
-        "User goal",
-        value="complete the target workflow without leaving the partner platform",
-        height=80,
-    )
-
-    starting_system = st.text_input(
-        "Where does the user start?",
-        value="Partner platform",
-    )
-
-    actors = st.text_area(
-        "Actors involved, one per line",
-        value="Partner platform user\nClient admin\nPartner admin\nEnd customer\nInternal product and engineering team",
-        height=130,
-    )
-
-    systems = st.text_area(
-        "Systems involved, one per line",
-        value="Partner platform\nClient product platform\nAuthentication or SSO layer\nWorkflow generation service\nAnalytics or audit layer",
-        height=130,
-    )
+    primary_user = st.text_input("Primary user", value=defaults["primary_user"])
+    user_goal = st.text_area("User goal", value=defaults["user_goal"], height=80)
+    starting_system = st.text_input("Where does the user start?", value=defaults["starting_system"])
+    actors = st.text_area("Actors involved, one per line", value=defaults["actors"], height=130)
+    systems = st.text_area("Systems involved, one per line", value=defaults["systems"], height=130)
 
     st.subheader("3. Journey and Decisions")
 
-    journey_steps = st.text_area(
-        "User journey steps, one per line",
-        value="User starts inside the partner platform\nUser opens the client product module\nSystem checks access and permissions\nUser selects or inputs required information\nSystem generates or prepares the output\nUser reviews the output\nUser approves or confirms the result\nSystem exports or completes the workflow\nSystem logs key events",
-        height=190,
-    )
-
-    product_decisions = st.text_area(
-        "Product decisions, one per line",
-        value="User starts inside the partner platform\nAuthentication is assumed for MVP planning\nThe partner platform owns user identity\nThe client product owns source content or capability\nHuman review is required before final output\nMVP exports or prepares output instead of performing irreversible production actions\nCore workflow events are logged",
-        height=170,
-    )
+    journey_steps = st.text_area("User journey steps, one per line", value=defaults["journey_steps"], height=210)
+    product_decisions = st.text_area("Product decisions, one per line", value=defaults["product_decisions"], height=220)
 
     st.subheader("4. Scope, Risks, and Metrics")
 
-    in_scope = st.text_area(
-        "MVP in scope, one per line",
-        value="User entry point from partner platform\nAccess and permission check\nCore workflow steps\nReview and confirmation step\nExport-ready output\nBasic event logging",
-        height=140,
-    )
-
-    out_of_scope = st.text_area(
-        "MVP out of scope, one per line",
-        value="Production-grade SSO implementation\nReal external API integration\nAdvanced analytics\nBilling\nMulti-partner configuration\nFull compliance dashboard",
-        height=140,
-    )
-
-    risks = st.text_area(
-        "Risks, one per line",
-        value="Partner workflow assumptions may be wrong\nRequired APIs may not exist\nUsers may expect production behavior in MVP\nData ownership may be unclear\nScope may expand before validation",
-        height=130,
-    )
-
-    success_metrics = st.text_area(
-        "Success metrics, one per line",
-        value="User can complete the end-to-end workflow in a demo\nStakeholders understand the product flow\nEngineering can identify buildable tickets\nOpen questions are visible and assigned\nMVP scope is clear",
-        height=130,
-    )
+    in_scope = st.text_area("MVP in scope, one per line", value=defaults["in_scope"], height=180)
+    out_of_scope = st.text_area("MVP out of scope, one per line", value=defaults["out_of_scope"], height=180)
+    risks = st.text_area("Risks, one per line", value=defaults["risks"], height=160)
+    success_metrics = st.text_area("Success metrics, one per line", value=defaults["success_metrics"], height=160)
 
     submitted = st.form_submit_button("Generate PM artifacts")
 
