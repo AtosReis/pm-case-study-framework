@@ -154,6 +154,36 @@ Main files:
 
 ---
 
+## Interactive PM Case Study Generator
+
+This repository now includes a Phase 1 interactive generator built with Streamlit.
+
+The generator turns structured product discovery inputs into Markdown artifacts, including:
+
+- Product Brief;
+- Actors and Systems Map;
+- User Journey;
+- Product Decisions;
+- MVP Scope;
+- Use Cases;
+- PRD;
+- Engineering Tickets;
+- Executive Summary.
+
+Phase 1 is template-based and does not use an LLM yet.
+
+Run locally:
+
+    pip install -r requirements.txt
+    streamlit run app/streamlit_app.py
+
+Generated files are saved locally under:
+
+    app/outputs/
+
+Generated outputs are ignored by git by default.
+
+---
 ## Why This Matters
 
 A vague request like:
@@ -233,6 +263,7 @@ Next possible additions:
 - clickable prototype;
 - GitHub project board;
 - final PDF case study.
+
 
 
 

@@ -4,3 +4,7 @@
 .venv/
 .DS_Store
 Thumbs.db
+
+# Generated PM Case Study Generator outputs
+app/outputs/*.md
+!app/outputs/.gitkeep

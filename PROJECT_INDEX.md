@@ -56,3 +56,9 @@
 ## Final
 
 1. docs/final/01_EXECUTIVE_SUMMARY.md
+
+## Interactive Generator
+
+1. app/streamlit_app.py
+2. requirements.txt
+3. app/outputs/.gitkeep
