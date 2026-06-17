@@ -73,6 +73,14 @@ The project follows this sequence:
 
 ---
 
+## Quick Executive Summary
+
+For a short version of the project, read:
+
+- docs/final/01_EXECUTIVE_SUMMARY.md
+
+---
+
 ## What This Repository Contains
 
 ### 1. PM Operating Framework
@@ -226,5 +234,6 @@ Next possible additions:
 - sample generated newsletter;
 - GitHub project board;
 - final PDF case study;
-- short presentation version.
+- short presentation version: complete.
+
 

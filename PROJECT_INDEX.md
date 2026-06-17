@@ -52,3 +52,7 @@
 ## Sample Newsletter Output
 
 1. docs/case_study/08_SAMPLE_NEWSLETTER_OUTPUT.md
+
+## Final
+
+1. docs/final/01_EXECUTIVE_SUMMARY.md
