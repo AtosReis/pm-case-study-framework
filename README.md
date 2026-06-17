@@ -186,6 +186,40 @@ Generated files are saved locally under:
 Generated outputs are ignored by git by default.
 
 ---
+## LLM Assistant Layer
+
+This repository also includes the design for a future LLM assistant layer.
+
+The goal is not to let AI replace Product Management judgment.
+
+The goal is to use AI inside the PM framework to:
+
+- identify ambiguity;
+- detect missing product decisions;
+- suggest follow-up discovery questions;
+- improve PRD wording;
+- strengthen engineering tickets;
+- make acceptance criteria more testable;
+- expose risks and unresolved assumptions.
+
+Current status:
+
+- LLM design: complete;
+- LLM implementation: planned;
+- Template-based generator: working;
+- ComplianceBrief x PartnerCRM preset: working.
+
+Main file:
+
+- docs/ai_layer/01_LLM_ASSISTANT_LAYER_DESIGN.md
+
+Positioning:
+
+The value is not AI writing PRDs automatically.
+
+The value is a PM operating framework that controls how AI is used.
+
+---
 ## Why This Matters
 
 A vague request like:
@@ -265,6 +299,7 @@ Next possible additions:
 - clickable prototype;
 - GitHub project board;
 - final PDF case study.
+
 
 
 

@@ -62,3 +62,7 @@
 1. app/streamlit_app.py
 2. requirements.txt
 3. app/outputs/.gitkeep
+
+## AI Layer
+
+1. docs/ai_layer/01_LLM_ASSISTANT_LAYER_DESIGN.md
