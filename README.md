@@ -231,9 +231,8 @@ Current version:
 Next possible additions:
 
 - clickable prototype;
-- sample generated newsletter;
 - GitHub project board;
-- final PDF case study;
-- short presentation version: complete.
+- final PDF case study.
+
 
 
