@@ -48,3 +48,7 @@
 ## Workflow and Architecture
 
 1. docs/case_study/07_WORKFLOW_AND_ARCHITECTURE.md
+
+## Sample Newsletter Output
+
+1. docs/case_study/08_SAMPLE_NEWSLETTER_OUTPUT.md

@@ -107,6 +107,7 @@ Main files:
 - docs/case_study/05_USE_CASES.md
 - docs/case_study/06_PRD.md
 - docs/case_study/07_WORKFLOW_AND_ARCHITECTURE.md
+- docs/case_study/08_SAMPLE_NEWSLETTER_OUTPUT.md
 
 ---
 
@@ -217,6 +218,7 @@ Current version:
 - Engineering tickets: complete
 - Reusable templates: complete
 - Visual workflow: complete
+- Sample newsletter output: complete
 
 Next possible additions:
 
@@ -225,3 +227,4 @@ Next possible additions:
 - GitHub project board;
 - final PDF case study;
 - short presentation version.
+
