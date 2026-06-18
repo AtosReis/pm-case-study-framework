@@ -71,3 +71,7 @@
 
 1. app/llm_providers.py
 2. .env.example
+
+## Portfolio Positioning
+
+1. docs/final/02_PORTFOLIO_POSITIONING.md

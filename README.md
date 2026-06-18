@@ -263,6 +263,48 @@ The value is not AI writing PRDs automatically.
 The value is a PM operating framework that controls how AI is used.
 
 ---
+## PM Framework + LLM-Assisted Product Audit
+
+This project is not an AI PRD generator.
+
+It is a Product Manager operating framework with an optional LLM-assisted audit layer.
+
+The PM framework structures the first product panorama of an ambiguous project:
+
+- business goal;
+- actors;
+- systems;
+- user journey;
+- product decisions;
+- MVP scope;
+- use cases;
+- PRD;
+- engineering tickets;
+- risks;
+- success metrics.
+
+The LLM audit reviews that first panorama and identifies weak points:
+
+- missing product decisions;
+- unclear assumptions;
+- weak acceptance criteria;
+- scope risks;
+- technical dependencies;
+- data ownership questions;
+- legal/compliance questions;
+- follow-up discovery questions;
+- recommended improvements.
+
+Core positioning:
+
+    I did not use AI to pretend I had seniority I did not have.
+    I used AI to audit my product reasoning, reveal weak points, and accelerate my learning.
+
+Main positioning file:
+
+- docs/final/02_PORTFOLIO_POSITIONING.md
+
+---
 ## Why This Matters
 
 A vague request like:
@@ -342,6 +384,7 @@ Next possible additions:
 - clickable prototype;
 - GitHub project board;
 - final PDF case study.
+
 
 
 
