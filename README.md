@@ -132,6 +132,24 @@ The project translates use cases into engineering-ready tickets with:
 - edge cases;
 - out-of-scope notes.
 
+
+Supported optional LLM providers:
+
+- Gemini;
+- OpenRouter;
+- OpenAI;
+- Template-only fallback.
+
+The app continues to work without any LLM API key.
+
+To enable LLM review, create a local .env file based on .env.example and configure one of:
+
+    GEMINI_API_KEY
+    OPENROUTER_API_KEY
+    OPENAI_API_KEY
+
+Generated outputs remain ignored by git by default.
+
 Main file:
 
 - docs/tickets/01_ENGINEERING_TICKETS.md
@@ -205,9 +223,29 @@ The goal is to use AI inside the PM framework to:
 Current status:
 
 - LLM design: complete;
-- LLM implementation: planned;
+- LLM provider layer: complete;
+- Optional LLM review UI: complete;
+- LLM implementation: available when API key is configured;
 - Template-based generator: working;
 - ComplianceBrief x PartnerCRM preset: working.
+
+
+Supported optional LLM providers:
+
+- Gemini;
+- OpenRouter;
+- OpenAI;
+- Template-only fallback.
+
+The app continues to work without any LLM API key.
+
+To enable LLM review, create a local .env file based on .env.example and configure one of:
+
+    GEMINI_API_KEY
+    OPENROUTER_API_KEY
+    OPENAI_API_KEY
+
+Generated outputs remain ignored by git by default.
 
 Main file:
 
@@ -299,6 +337,7 @@ Next possible additions:
 - clickable prototype;
 - GitHub project board;
 - final PDF case study.
+
 
 
 

@@ -4,6 +4,13 @@ from pathlib import Path
 
 import streamlit as st
 
+from llm_providers import (
+    TEMPLATE_ONLY,
+    get_available_providers,
+    get_provider_status,
+    review_artifact,
+)
+
 
 OUTPUT_DIR = Path(__file__).parent / "outputs"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -440,6 +447,10 @@ if submitted:
     output_path = OUTPUT_DIR / filename
     output_path.write_text(markdown, encoding="utf-8")
 
+    st.session_state["latest_markdown"] = markdown
+    st.session_state["latest_output_filename"] = filename
+    st.session_state["latest_llm_review"] = ""
+
     st.success(f"Generated: app/outputs/{filename}")
 
     st.download_button(
@@ -451,3 +462,42 @@ if submitted:
 
     st.subheader("Generated Preview")
     st.markdown(markdown)
+
+
+if st.session_state.get("latest_markdown"):
+    st.divider()
+    st.subheader("Optional LLM Review")
+
+    st.write(
+        "Use this after generating artifacts to detect missing decisions, "
+        "unclear assumptions, weak acceptance criteria, scope risks, and follow-up questions."
+    )
+
+    available_providers = get_available_providers()
+
+    selected_provider = st.selectbox(
+        "LLM provider",
+        options=available_providers,
+        index=0,
+        key="llm_review_provider",
+    )
+
+    if selected_provider == TEMPLATE_ONLY:
+        st.info(
+            "Template-only mode is active. Add GEMINI_API_KEY, OPENROUTER_API_KEY, "
+            "or OPENAI_API_KEY to enable LLM review."
+        )
+
+    review_disabled = selected_provider == TEMPLATE_ONLY
+
+    if st.button("Review generated artifacts with LLM", disabled=review_disabled):
+        with st.spinner(f"Reviewing with {selected_provider}..."):
+            st.session_state["latest_llm_review"] = review_artifact(
+                selected_provider,
+                st.session_state["latest_markdown"],
+            )
+
+    if st.session_state.get("latest_llm_review"):
+        st.subheader("LLM Review Result")
+        st.markdown(st.session_state["latest_llm_review"])
+

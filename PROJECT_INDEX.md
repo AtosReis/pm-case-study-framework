@@ -66,3 +66,8 @@
 ## AI Layer
 
 1. docs/ai_layer/01_LLM_ASSISTANT_LAYER_DESIGN.md
+
+## LLM Provider Layer
+
+1. app/llm_providers.py
+2. .env.example
