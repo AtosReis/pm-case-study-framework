@@ -142,6 +142,8 @@ Supported optional LLM providers:
 
 The app continues to work without any LLM API key.
 
+The LLM review can also be downloaded and saved as a Markdown artifact.
+
 To enable LLM review, create a local .env file based on .env.example and configure one of:
 
     GEMINI_API_KEY
@@ -225,6 +227,7 @@ Current status:
 - LLM design: complete;
 - LLM provider layer: complete;
 - Optional LLM review UI: complete;
+- Downloadable LLM review output: complete;
 - LLM implementation: available when API key is configured;
 - Template-based generator: working;
 - ComplianceBrief x PartnerCRM preset: working.
@@ -238,6 +241,8 @@ Supported optional LLM providers:
 - Template-only fallback.
 
 The app continues to work without any LLM API key.
+
+The LLM review can also be downloaded and saved as a Markdown artifact.
 
 To enable LLM review, create a local .env file based on .env.example and configure one of:
 
@@ -337,6 +342,7 @@ Next possible additions:
 - clickable prototype;
 - GitHub project board;
 - final PDF case study.
+
 
 
 

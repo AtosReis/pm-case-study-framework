@@ -450,6 +450,7 @@ if submitted:
     st.session_state["latest_markdown"] = markdown
     st.session_state["latest_output_filename"] = filename
     st.session_state["latest_llm_review"] = ""
+    st.session_state["latest_llm_review_filename"] = ""
 
     st.success(f"Generated: app/outputs/{filename}")
 
@@ -497,7 +498,44 @@ if st.session_state.get("latest_markdown"):
                 st.session_state["latest_markdown"],
             )
 
+            review_filename = (
+                f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_"
+                f"llm-review-{slugify(st.session_state['latest_output_filename'])}.md"
+            )
+
+            review_path = OUTPUT_DIR / review_filename
+            review_content = (
+                "# LLM Review Result\n\n"
+                f"Provider: {selected_provider}\n\n"
+                f"Reviewed artifact: {st.session_state['latest_output_filename']}\n\n"
+                "---\n\n"
+                f"{st.session_state['latest_llm_review']}\n"
+            )
+
+            review_path.write_text(review_content, encoding="utf-8")
+            st.session_state["latest_llm_review_filename"] = review_filename
+
     if st.session_state.get("latest_llm_review"):
         st.subheader("LLM Review Result")
         st.markdown(st.session_state["latest_llm_review"])
+
+        review_download_content = (
+            "# LLM Review Result\n\n"
+            f"Provider: {selected_provider}\n\n"
+            f"Reviewed artifact: {st.session_state['latest_output_filename']}\n\n"
+            "---\n\n"
+            f"{st.session_state['latest_llm_review']}\n"
+        )
+
+        st.download_button(
+            label="Download LLM review as Markdown",
+            data=review_download_content,
+            file_name=st.session_state.get("latest_llm_review_filename") or "llm-review.md",
+            mime="text/markdown",
+        )
+
+        if st.session_state.get("latest_llm_review_filename"):
+            st.success(
+                f"Saved review: app/outputs/{st.session_state['latest_llm_review_filename']}"
+            )
 
